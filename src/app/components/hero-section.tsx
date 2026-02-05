@@ -6,7 +6,7 @@ export function HeroSection() {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img
-          src="/images/hero.jpg"
+          src="images/hero.jpg"
           alt="Современная городская среда и жилой комплекс"
           loading="eager"
           fetchpriority="high"

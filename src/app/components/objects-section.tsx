@@ -27,7 +27,7 @@ export function ObjectsSection() {
           <div className="order-2 lg:order-1">
             <div className="aspect-[4/3] rounded-lg overflow-hidden">
               <img 
-                src="/images/objects.jpg"
+                src="images/objects.jpg"
                 alt="Жилые и коммунальные объекты под управлением"
                 loading="lazy"
                 decoding="async"

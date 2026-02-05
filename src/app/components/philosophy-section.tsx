@@ -28,7 +28,7 @@
           <div className="relative">
             <div className="aspect-[4/3] rounded-lg overflow-hidden">
               <img 
-                src="/images/philosophy.jpg"
+                src="images/philosophy.jpg"
                 alt="Комфортная и безопасная городская среда"
                 loading="lazy"
                 decoding="async"
