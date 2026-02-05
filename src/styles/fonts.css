@@ -1,0 +1,15 @@
+﻿@font-face {
+  font-family: 'Montserrat';
+  src: local('Montserrat');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Unbounded';
+  src: local('Unbounded');
+  font-weight: 500 700;
+  font-style: normal;
+  font-display: swap;
+}
