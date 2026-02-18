@@ -1,4 +1,4 @@
-<?php
+п»ї<?php
 
 declare(strict_types=1);
 
@@ -36,11 +36,11 @@ $email = trim((string)($input['email'] ?? ''));
 $message = trim((string)($input['message'] ?? ''));
 
 if ($name === '') {
-    respond(422, ['success' => false, 'message' => 'Имя обязательно']);
+    respond(422, ['success' => false, 'message' => 'РРјСЏ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ']);
 }
 
 if ($email === '' || !preg_match('/^[^\s@]+@[^\s@]+\.[^\s@]+$/', $email)) {
-    respond(422, ['success' => false, 'message' => 'Некорректный email']);
+    respond(422, ['success' => false, 'message' => 'РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ email']);
 }
 
 require_once __DIR__ . '/PHPMailer/src/Exception.php';
@@ -57,25 +57,26 @@ try {
     $mail->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port = 465;
     $mail->CharSet = 'UTF-8';
+    $mail->Encoding = 'base64';
 
     $from = (string)$config['smtp_user'];
     $to = (string)$config['to'];
 
     $mail->setFrom($from);
     $mail->addAddress($to);
-    $mail->Subject = 'Новое сообщение с сайта';
+    $mail->Subject = 'РќРѕРІРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ СЃ СЃР°Р№С‚Р°';
 
     $safeName = htmlspecialchars($name, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     $safeEmail = htmlspecialchars($email, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     $safeMessage = nl2br(htmlspecialchars($message, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'));
 
     $mail->isHTML(true);
-    $mail->Body = '<h2>Новое сообщение с сайта</h2>'
-        . '<p><strong>Имя:</strong> ' . $safeName . '</p>'
+    $mail->Body = '<h2>РќРѕРІРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ СЃ СЃР°Р№С‚Р°</h2>'
+        . '<p><strong>РРјСЏ:</strong> ' . $safeName . '</p>'
         . '<p><strong>Email:</strong> ' . $safeEmail . '</p>'
-        . '<p><strong>Сообщение:</strong><br>' . $safeMessage . '</p>';
+        . '<p><strong>РЎРѕРѕР±С‰РµРЅРёРµ:</strong><br>' . $safeMessage . '</p>';
 
-    $mail->AltBody = "Имя: {$name}\nEmail: {$email}\nСообщение: {$message}";
+    $mail->AltBody = "РРјСЏ: {$name}\nEmail: {$email}\nРЎРѕРѕР±С‰РµРЅРёРµ: {$message}";
 
     $mail->send();
 
@@ -83,3 +84,4 @@ try {
 } catch (\Throwable $e) {
     respond(500, ['success' => false, 'message' => $e->getMessage()]);
 }
+
