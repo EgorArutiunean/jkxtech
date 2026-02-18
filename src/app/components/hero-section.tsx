@@ -1,6 +1,11 @@
 ﻿import { ArrowRight } from 'lucide-react';
 
 export function HeroSection() {
+  const handleScrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    contactSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -26,7 +31,11 @@ export function HeroSection() {
             Профессиональное управление жилищно-коммунальной инфраструктурой. 
             Системный подход к обслуживанию многоквартирных домов и городских объектов.
           </p>
-          <button className="inline-flex items-center gap-3 bg-[#00D867] hover:bg-[#00c45d] text-white px-10 py-5 rounded-lg transition-colors duration-300">
+          <button
+            type="button"
+            onClick={handleScrollToContact}
+            className="inline-flex items-center gap-3 bg-[#00D867] hover:bg-[#00c45d] text-white px-10 py-5 rounded-lg transition-colors duration-300"
+          >
             <span style={{ fontSize: '1.125rem', fontWeight: 500 }}>Отправить заявку</span>
             <ArrowRight className="w-5 h-5" />
           </button>
