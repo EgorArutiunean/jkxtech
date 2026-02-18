@@ -7,11 +7,65 @@ export function ContactSection() {
     email: '',
     message: ''
   });
+  const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validate = (values: { name: string; email: string; message: string }) => {
+    const nextErrors: { name?: string; email?: string; message?: string } = {};
+
+    if (values.name.trim().length < 2) {
+      nextErrors.name = 'Введите имя';
+    }
+
+    const email = values.email.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      nextErrors.email = 'Введите корректный email';
+    }
+
+    return nextErrors;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
+
+    const newErrors = validate(formData);
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      const firstError = newErrors.name || newErrors.email || newErrors.message;
+      if (firstError) {
+        alert(firstError);
+      }
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/contact.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message
+        })
+      });
+
+      const data = (await response.json()) as { success: boolean; message?: string };
+
+      if (data.success) {
+        alert('Сообщение отправлено');
+        setFormData({ name: '', email: '', message: '' });
+        setErrors({});
+      } else {
+        alert('Ошибка отправки: ' + (data.message || 'Попробуйте позже'));
+      }
+    } catch {
+      alert('Ошибка отправки: Попробуйте позже');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -108,6 +162,7 @@ export function ContactSection() {
 
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="w-full bg-[#00D867] hover:bg-[#00c45d] text-white px-8 py-4 rounded-lg transition-colors duration-300"
                 style={{ fontSize: '1rem', fontWeight: 500 }}
               >
