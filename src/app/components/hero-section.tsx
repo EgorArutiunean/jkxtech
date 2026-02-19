@@ -23,21 +23,23 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        <div className="max-w-3xl">
+        <div className="max-w-3xl mx-auto lg:mx-0 text-center lg:text-left">
           <h1 className="text-white mb-6" style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)' }}>
             ЖКХ Технологии
           </h1>
-          <p className="text-white/90 mb-10 max-w-2xl" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.5rem)' }}>
+          <p className="text-white/90 mb-10 max-w-2xl mx-auto lg:mx-0" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.5rem)' }}>
             Ваш управляющий партнёр по эксплуатации объектов недвижимости: прозрачные процессы, быстрый отклик и стабильное качество сервиса для жителей и собственников.
           </p>
-          <button
-            type="button"
-            onClick={handleScrollToContact}
-            className="inline-flex items-center gap-3 bg-[#00D867] hover:bg-[#00c45d] text-white px-10 py-5 rounded-lg transition-colors duration-300"
-          >
-            <span style={{ fontSize: '1.125rem', fontWeight: 500 }}>Консультация</span>
-            <ArrowRight className="w-5 h-5" />
-          </button>
+          <div className="flex justify-center lg:justify-start">
+            <button
+              type="button"
+              onClick={handleScrollToContact}
+              className="inline-flex items-center gap-3 bg-[#00D867] hover:bg-[#00c45d] text-white px-10 py-5 rounded-lg transition-colors duration-300"
+            >
+              <span style={{ fontSize: '1.125rem', fontWeight: 500 }}>Консультация</span>
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </div>
 

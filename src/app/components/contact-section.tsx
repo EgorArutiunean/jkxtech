@@ -100,11 +100,11 @@ export function ContactSection() {
     <section id="contact" className="py-24 bg-[#f5f5f5]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Header */}
-        <div className="max-w-3xl mb-16">
+        <div className="max-w-3xl mb-16 mx-auto md:mx-0 text-center md:text-left">
           <h2 className="mb-6" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
             Контакты
           </h2>
-          <p className="text-[#282828]/80" style={{ fontSize: '1.125rem', lineHeight: '1.8' }}>
+          <p className="text-[#282828]/80 text-justify md:text-left" style={{ fontSize: '1.125rem', lineHeight: '1.8' }}>
             Опишите задачу — мы предложим формат управления и план работ
           </p>
         </div>

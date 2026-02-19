@@ -5,10 +5,10 @@
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Text Content */}
           <div>
-            <h2 className="mb-6" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
+            <h2 className="mb-6 text-center lg:text-left" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
               Философия и миссия
             </h2>
-            <div className="space-y-6 text-[#282828]/80" style={{ fontSize: '1.125rem', lineHeight: '1.8' }}>
+            <div className="space-y-6 text-[#282828]/80 text-justify lg:text-left" style={{ fontSize: '1.125rem', lineHeight: '1.8' }}>
               <p>
                 Мы создаём комфортную и безопасную среду для жизни — через дисциплину процессов, прозрачность решений и технологичный контроль качества работ.
               </p>
@@ -40,5 +40,4 @@
     </section>
   );
 }
-
 

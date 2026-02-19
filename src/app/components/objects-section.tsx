@@ -38,10 +38,10 @@ export function ObjectsSection() {
 
           {/* Content */}
           <div className="order-1 lg:order-2">
-            <h2 className="mb-6" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
+            <h2 className="mb-6 text-center lg:text-left" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}>
               Объекты управления
             </h2>
-            <p className="text-[#282828]/80 mb-10" style={{ fontSize: '1.125rem', lineHeight: '1.8' }}>
+            <p className="text-[#282828]/80 mb-10 text-justify lg:text-left" style={{ fontSize: '1.125rem', lineHeight: '1.8' }}>
               Мы управляем разнообразными объектами жилой и коммунальной инфраструктуры, 
               обеспечивая их бесперебойное функционирование и комфорт для жителей.
             </p>
@@ -76,5 +76,4 @@ export function ObjectsSection() {
     </section>
   );
 }
-
 
