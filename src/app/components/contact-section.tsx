@@ -78,20 +78,20 @@ export function ContactSection() {
   const contactMethods = [
     {
       icon: Phone,
-      title: 'Телефон',
-      value: '+7 (495) 123-45-67',
+      title: 'Телефон/WhatsApp/Telegram',
+      value: '+7 925 309 82 27',
       description: 'Пн-Пт: 9:00 — 18:00'
     },
     {
       icon: Mail,
       title: 'Email',
-      value: 'info@gkh-tech.ru',
+      value: 'jkhtechno@gmail.com',
       description: 'Ответим в течение 24 часов'
     },
     {
       icon: MapPin,
       title: 'Адрес',
-      value: 'Москва, ул. Примерная, 123',
+      value: 'Москва, Ленинский просп., 100',
       description: 'Офис: 9:00 — 18:00'
     }
   ];
@@ -105,7 +105,7 @@ export function ContactSection() {
             Контакты
           </h2>
           <p className="text-[#282828]/80" style={{ fontSize: '1.125rem', lineHeight: '1.8' }}>
-            Свяжитесь с нами для обсуждения сотрудничества
+            Опишите задачу — мы предложим формат управления и план работ
           </p>
         </div>
 
@@ -113,7 +113,7 @@ export function ContactSection() {
           {/* Contact Form */}
           <div className="bg-white border border-[#282828]/10 rounded-lg p-8">
             <h3 className="mb-6" style={{ fontSize: '1.5rem' }}>
-              Отправить заявку
+              Получить консультацию
             </h3>
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
@@ -124,6 +124,7 @@ export function ContactSection() {
                   type="text"
                   id="name"
                   name="name"
+                  placeholder="Как к вам обращаться"
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -139,6 +140,7 @@ export function ContactSection() {
                   type="email"
                   id="email"
                   name="email"
+                  placeholder="name@company.ru"
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -153,6 +155,7 @@ export function ContactSection() {
                 <textarea
                   id="message"
                   name="message"
+                  placeholder="Адрес/тип объекта и что нужно: эксплуатация, аварийка, подрядчики, отчётность…"
                   value={formData.message}
                   onChange={handleChange}
                   rows={4}

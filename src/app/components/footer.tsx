@@ -21,9 +21,9 @@
               Контакты
             </h4>
             <div className="space-y-2 text-white/70" style={{ fontSize: '0.875rem' }}>
-              <p>+7 (495) 123-45-67</p>
-              <p>info@gkh-tech.ru</p>
-              <p>Москва, ул. Примерная, 123</p>
+              <p>Телефон/WhatsApp/Telegram: +7 925 309 82 27</p>
+              <p>jkhtechno@gmail.com</p>
+              <p>Москва, Ленинский просп., 100</p>
             </div>
           </div>
 
@@ -46,9 +46,9 @@
             </h4>
             <div className="space-y-2 text-white/70" style={{ fontSize: '0.875rem' }}>
               <p>ООО «ЖКХ Технологии»</p>
-              <p>ИНН: 7700123456</p>
-              <p>ОГРН: 1234567890123</p>
-              <p>КПП: 770001001</p>
+              <p>ИНН: 9710063650</p>
+              <p>ОГРН: 1187746611854</p>
+              <p>КПП: 771001001</p>
             </div>
           </div>
         </div>
