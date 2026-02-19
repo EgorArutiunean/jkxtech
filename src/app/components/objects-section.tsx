@@ -5,17 +5,17 @@ export function ObjectsSection() {
     {
       icon: Building2,
       title: 'Многоквартирные дома',
-      count: '350+'
+      count: '20+'
     },
     {
       icon: Home,
       title: 'Жилые комплексы',
-      count: '80+'
+      count: '7+'
     },
     {
       icon: Factory,
       title: 'Коммунальные объекты',
-      count: '70+'
+      count: '3+'
     }
   ];
 

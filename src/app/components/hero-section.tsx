@@ -28,15 +28,14 @@ export function HeroSection() {
             ЖКХ Технологии
           </h1>
           <p className="text-white/90 mb-10 max-w-2xl" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.5rem)' }}>
-            Профессиональное управление жилищно-коммунальной инфраструктурой. 
-            Системный подход к обслуживанию многоквартирных домов и городских объектов.
+            Ваш управляющий партнёр по эксплуатации объектов недвижимости: прозрачные процессы, быстрый отклик и стабильное качество сервиса для жителей и собственников.
           </p>
           <button
             type="button"
             onClick={handleScrollToContact}
             className="inline-flex items-center gap-3 bg-[#00D867] hover:bg-[#00c45d] text-white px-10 py-5 rounded-lg transition-colors duration-300"
           >
-            <span style={{ fontSize: '1.125rem', fontWeight: 500 }}>Отправить заявку</span>
+            <span style={{ fontSize: '1.125rem', fontWeight: 500 }}>Консультация</span>
             <ArrowRight className="w-5 h-5" />
           </button>
         </div>
