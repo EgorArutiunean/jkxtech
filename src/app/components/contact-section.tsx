@@ -52,14 +52,20 @@ export function ContactSection() {
         })
       });
 
-      const data = (await response.json()) as { success: boolean; message?: string };
+      const raw = await response.text();
+      let data: { success: boolean; message?: string } | null = null;
+      try {
+        data = JSON.parse(raw) as { success: boolean; message?: string };
+      } catch {
+        data = null;
+      }
 
-      if (data.success) {
+      if (response.ok && data?.success) {
         alert('Сообщение отправлено');
         setFormData({ name: '', email: '', message: '' });
         setErrors({});
       } else {
-        alert('Ошибка отправки: ' + (data.message || 'Попробуйте позже'));
+        alert('Ошибка отправки: ' + (data?.message || raw || 'Попробуйте позже'));
       }
     } catch {
       alert('Ошибка отправки: Попробуйте позже');

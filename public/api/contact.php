@@ -1,46 +1,59 @@
 ﻿<?php
-
-declare(strict_types=1);
-
 header('Content-Type: application/json; charset=utf-8');
 
-function respond(int $status, array $payload): void
+if (!function_exists('json_encode')) {
+    header('Content-Type: text/plain; charset=utf-8');
+    echo 'JSON extension is not available';
+    exit;
+}
+
+function respond($status, $payload)
 {
-    http_response_code($status);
+    if (!headers_sent()) {
+        http_response_code((int)$status);
+    }
     echo json_encode($payload, JSON_UNESCAPED_UNICODE);
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    respond(405, ['success' => false, 'message' => 'Method not allowed']);
+    respond(405, array('success' => false, 'message' => 'Method not allowed'));
 }
 
 $configPath = __DIR__ . '/config.php';
 if (!file_exists($configPath)) {
-    respond(500, ['success' => false, 'message' => 'SMTP config not found']);
+    respond(500, array('success' => false, 'message' => 'SMTP config not found'));
 }
 
 $config = require $configPath;
-if (!is_array($config) || empty($config['smtp_user']) || empty($config['smtp_pass']) || empty($config['to'])) {
-    respond(500, ['success' => false, 'message' => 'SMTP config is invalid']);
+if (!is_array($config)) {
+    respond(500, array('success' => false, 'message' => 'SMTP config is invalid'));
+}
+
+$smtpUser = isset($config['smtp_user']) ? trim((string)$config['smtp_user']) : '';
+$smtpPass = isset($config['smtp_pass']) ? trim((string)$config['smtp_pass']) : '';
+$to = isset($config['to']) ? trim((string)$config['to']) : '';
+
+if ($smtpUser === '' || $smtpPass === '' || $to === '') {
+    respond(500, array('success' => false, 'message' => 'SMTP config is invalid'));
 }
 
 $raw = file_get_contents('php://input');
-$input = json_decode($raw ?: '', true);
+$input = json_decode($raw ? $raw : '', true);
 if (!is_array($input)) {
-    respond(400, ['success' => false, 'message' => 'Invalid JSON']);
+    respond(400, array('success' => false, 'message' => 'Invalid JSON'));
 }
 
-$name = trim((string)($input['name'] ?? ''));
-$email = trim((string)($input['email'] ?? ''));
-$message = trim((string)($input['message'] ?? ''));
+$name = isset($input['name']) ? trim((string)$input['name']) : '';
+$email = isset($input['email']) ? trim((string)$input['email']) : '';
+$message = isset($input['message']) ? trim((string)$input['message']) : '';
 
 if ($name === '') {
-    respond(422, ['success' => false, 'message' => 'Имя обязательно']);
+    respond(422, array('success' => false, 'message' => 'Имя обязательно'));
 }
 
 if ($email === '' || !preg_match('/^[^\s@]+@[^\s@]+\.[^\s@]+$/', $email)) {
-    respond(422, ['success' => false, 'message' => 'Некорректный email']);
+    respond(422, array('success' => false, 'message' => 'Некорректный email'));
 }
 
 require_once __DIR__ . '/PHPMailer/src/Exception.php';
@@ -52,23 +65,20 @@ try {
     $mail->isSMTP();
     $mail->Host = 'smtp.yandex.ru';
     $mail->SMTPAuth = true;
-    $mail->Username = (string)$config['smtp_user'];
-    $mail->Password = (string)$config['smtp_pass'];
-    $mail->SMTPSecure = \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+    $mail->Username = $smtpUser;
+    $mail->Password = $smtpPass;
+    $mail->SMTPSecure = 'ssl';
     $mail->Port = 465;
     $mail->CharSet = 'UTF-8';
     $mail->Encoding = 'base64';
 
-    $from = (string)$config['smtp_user'];
-    $to = (string)$config['to'];
-
-    $mail->setFrom($from);
+    $mail->setFrom($smtpUser);
     $mail->addAddress($to);
     $mail->Subject = 'Новое сообщение с сайта';
 
-    $safeName = htmlspecialchars($name, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-    $safeEmail = htmlspecialchars($email, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-    $safeMessage = nl2br(htmlspecialchars($message, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'));
+    $safeName = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+    $safeEmail = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+    $safeMessage = nl2br(htmlspecialchars($message, ENT_QUOTES, 'UTF-8'));
 
     $mail->isHTML(true);
     $mail->Body = '<h2>Новое сообщение с сайта</h2>'
@@ -80,7 +90,9 @@ try {
 
     $mail->send();
 
-    respond(200, ['success' => true]);
-} catch (\Throwable $e) {
-    respond(500, ['success' => false, 'message' => $e->getMessage()]);
+    respond(200, array('success' => true));
+} catch (\PHPMailer\PHPMailer\Exception $e) {
+    respond(500, array('success' => false, 'message' => $e->getMessage()));
+} catch (\Exception $e) {
+    respond(500, array('success' => false, 'message' => $e->getMessage()));
 }
