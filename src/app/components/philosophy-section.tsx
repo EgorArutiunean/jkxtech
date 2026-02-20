@@ -1,6 +1,6 @@
 ﻿export function PhilosophySection() {
   return (
-    <section className="py-24 bg-[#f5f5f5]">
+    <section className="py-16 md:py-24 bg-[#f5f5f5]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Text Content */}
@@ -40,4 +40,3 @@
     </section>
   );
 }
-
