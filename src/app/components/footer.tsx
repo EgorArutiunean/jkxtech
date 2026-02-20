@@ -21,7 +21,9 @@
               Контакты
             </h4>
             <div className="space-y-2 text-white/70" style={{ fontSize: '0.875rem' }}>
-              <p>Телефон/WhatsApp/Telegram: +7 925 309 82 27</p>
+              <a href="tel:+79253098227" className="hover:text-[#00D867] transition-colors">
+                Телефон/WhatsApp/Telegram: +7 925 309 82 27
+              </a>
               <p>jkhtechno@gmail.com</p>
               <p>Москва, Ленинский просп., 100</p>
             </div>
@@ -71,4 +73,3 @@
     </footer>
   );
 }
-

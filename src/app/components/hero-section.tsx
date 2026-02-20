@@ -25,7 +25,7 @@ export function HeroSection() {
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="max-w-3xl mx-auto lg:mx-0 text-center lg:text-left">
           <h1 className="text-white mb-6" style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)' }}>
-            ЖКХ Технологии
+            ЖКХ Технологии — управляющая компания
           </h1>
           <p className="text-white/90 mb-10 max-w-2xl mx-auto lg:mx-0" style={{ fontSize: 'clamp(1.125rem, 2vw, 1.5rem)' }}>
             Ваш управляющий партнёр по эксплуатации объектов недвижимости: прозрачные процессы, быстрый отклик и стабильное качество сервиса для жителей и собственников.
@@ -52,5 +52,6 @@ export function HeroSection() {
     </section>
   );
 }
+
 
 
