@@ -9,6 +9,7 @@ export function ContactSection() {
   });
   const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [copiedMsg, setCopiedMsg] = useState<string | null>(null);
 
   const validate = (values: { name: string; email: string; message: string }) => {
     const nextErrors: { name?: string; email?: string; message?: string } = {};
@@ -81,18 +82,46 @@ export function ContactSection() {
     });
   };
 
+  const copyText = async (text: string) => {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.opacity = '0';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textArea);
+  };
+
+  const showCopiedToast = (message: string) => {
+    setCopiedMsg(message);
+    window.setTimeout(() => {
+      setCopiedMsg(null);
+    }, 1800);
+  };
+
   const contactMethods = [
     {
       icon: Phone,
       title: 'Телефон/WhatsApp/Telegram',
       value: '+7 925 309 82 27',
-      description: 'Пн-Пт: 9:00 — 18:00'
+      description: 'Пн-Пт: 9:00 — 18:00',
+      copyValue: '+79253098227',
+      copiedText: 'Телефон скопирован'
     },
     {
       icon: Mail,
       title: 'Email',
       value: 'jkhtechno@gmail.com',
-      description: 'Ответим в течение 24 часов'
+      description: 'Ответим в течение 24 часов',
+      copyValue: 'jkhtechno@gmail.com',
+      copiedText: 'Email скопирован'
     },
     {
       icon: MapPin,
@@ -182,12 +211,34 @@ export function ContactSection() {
 
           {/* Contact Cards */}
           <div className="space-y-6">
+            {copiedMsg ? (
+              <div className="fixed top-4 right-4 z-50 bg-[#282828] text-white px-4 py-2 rounded-lg shadow-lg">
+                {copiedMsg}
+              </div>
+            ) : null}
             {contactMethods.map((method, index) => {
               const Icon = method.icon;
+              const isCopyable = Boolean(method.copyValue && method.copiedText);
               return (
                 <div
                   key={index}
-                  className="bg-white border border-[#282828]/10 rounded-lg p-6 hover:border-[#00D867]/30 transition-all duration-300"
+                  className={`bg-white border border-[#282828]/10 rounded-lg p-6 transition-all duration-300 ${
+                    isCopyable
+                      ? 'hover:border-[#00D867]/30 cursor-pointer'
+                      : 'hover:border-[#00D867]/30'
+                  }`}
+                  onClick={
+                    isCopyable
+                      ? async () => {
+                          try {
+                            await copyText(method.copyValue as string);
+                            showCopiedToast(method.copiedText as string);
+                          } catch {
+                            showCopiedToast('Не удалось скопировать');
+                          }
+                        }
+                      : undefined
+                  }
                 >
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-[#00D867]/10 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -197,7 +248,10 @@ export function ContactSection() {
                       <div className="text-[#282828]/60 mb-1" style={{ fontSize: '0.875rem' }}>
                         {method.title}
                       </div>
-                      <div className="font-medium mb-1" style={{ fontSize: '1.125rem' }}>
+                      <div
+                        className={`font-medium mb-1 ${isCopyable ? 'hover:text-[#00a451] underline-offset-2 hover:underline' : ''}`}
+                        style={{ fontSize: '1.125rem' }}
+                      >
                         {method.value}
                       </div>
                       <div className="text-[#282828]/60" style={{ fontSize: '0.875rem' }}>
