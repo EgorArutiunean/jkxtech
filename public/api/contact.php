@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 
@@ -84,4 +84,3 @@ try {
 } catch (\Throwable $e) {
     respond(500, ['success' => false, 'message' => $e->getMessage()]);
 }
-
