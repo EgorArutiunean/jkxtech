@@ -212,7 +212,7 @@ export function ContactSection() {
           {/* Contact Cards */}
           <div className="space-y-6">
             {copiedMsg ? (
-              <div className="fixed top-4 right-4 z-50 bg-[#282828] text-white px-4 py-2 rounded-lg shadow-lg">
+              <div className="fixed top-4 right-4 z-50 bg-[#282828]/25 backdrop-blur-sm text-white px-4 py-2 rounded-lg shadow-lg">
                 {copiedMsg}
               </div>
             ) : null}
@@ -222,23 +222,7 @@ export function ContactSection() {
               return (
                 <div
                   key={index}
-                  className={`bg-white border border-[#282828]/10 rounded-lg p-6 transition-all duration-300 ${
-                    isCopyable
-                      ? 'hover:border-[#00D867]/30 cursor-pointer'
-                      : 'hover:border-[#00D867]/30'
-                  }`}
-                  onClick={
-                    isCopyable
-                      ? async () => {
-                          try {
-                            await copyText(method.copyValue as string);
-                            showCopiedToast(method.copiedText as string);
-                          } catch {
-                            showCopiedToast('Не удалось скопировать');
-                          }
-                        }
-                      : undefined
-                  }
+                  className="bg-white border border-[#282828]/10 rounded-lg p-6 hover:border-[#00D867]/30 transition-all duration-300"
                 >
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-[#00D867]/10 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -249,8 +233,20 @@ export function ContactSection() {
                         {method.title}
                       </div>
                       <div
-                        className={`font-medium mb-1 ${isCopyable ? 'hover:text-[#00a451] underline-offset-2 hover:underline' : ''}`}
+                        className={`font-medium mb-1 ${isCopyable ? 'inline-block w-fit cursor-pointer hover:text-[#00a451] underline-offset-2 hover:underline' : ''}`}
                         style={{ fontSize: '1.125rem' }}
+                        onClick={
+                          isCopyable
+                            ? async () => {
+                                try {
+                                  await copyText(method.copyValue as string);
+                                  showCopiedToast(method.copiedText as string);
+                                } catch {
+                                  showCopiedToast('Не удалось скопировать');
+                                }
+                              }
+                            : undefined
+                        }
                       >
                         {method.value}
                       </div>
@@ -268,4 +264,3 @@ export function ContactSection() {
     </section>
   );
 }
-
